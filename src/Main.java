@@ -1,6 +1,6 @@
 import taskmanager.TaskManager;
 import taskmanager.Managers;
-import taskmanager.TaskStatus;
+import tasks.TaskStatus;
 import tasks.Task;
 import tasks.SubTask;
 import tasks.Epic;
