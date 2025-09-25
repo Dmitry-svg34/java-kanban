@@ -2,7 +2,6 @@ package taskmanager;
 import tasks.Epic;
 import tasks.SubTask;
 import tasks.Task;
-import tasks.TaskStatus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -211,7 +210,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public SubTask deleteSubtasks(Integer id) {
+    public SubTask deleteSubtaskById(Integer id) {
         SubTask removed = subtasks.remove(id);
         if (removed != null) {
             historyManager.remove(id); // Удаление подзадачи из истории
@@ -244,24 +243,24 @@ public class InMemoryTaskManager implements TaskManager {
     public void updateEpicStatus(Epic epic) {
         ArrayList<SubTask> subs = getSubTasksByEpic(epic.getId());
         if (subs.isEmpty()) {
-            epic.setTaskStatus(TaskStatus.NEW);
+            epic.setTaskStatus(taskmanager.TaskStatus.NEW);
         } else {
             boolean allNew = true;
             boolean allDone = true;
             for (SubTask sub : subs) {
-                if (sub.getTaskStatus() != TaskStatus.NEW) {
+                if (sub.getTaskStatus() != taskmanager.TaskStatus.NEW) {
                     allNew = false;
                 }
-                if (sub.getTaskStatus() != TaskStatus.DONE) {
+                if (sub.getTaskStatus() != taskmanager.TaskStatus.DONE) {
                     allDone = false;
                 }
             }
             if (allNew) {
-                epic.setTaskStatus(TaskStatus.NEW);
+                epic.setTaskStatus(taskmanager.TaskStatus.NEW);
             } else if (allDone) {
-                epic.setTaskStatus(TaskStatus.DONE);
+                epic.setTaskStatus(taskmanager.TaskStatus.DONE);
             } else {
-                epic.setTaskStatus(TaskStatus.IN_PROGRESS);
+                epic.setTaskStatus(taskmanager.TaskStatus.IN_PROGRESS);
             }
         }
         updateEpic(epic);
