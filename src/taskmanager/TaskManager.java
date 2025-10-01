@@ -56,4 +56,3 @@ public interface TaskManager {
     List<Task> getHistory(); // Сохраняем историю вызова объектов.
 
 }
-

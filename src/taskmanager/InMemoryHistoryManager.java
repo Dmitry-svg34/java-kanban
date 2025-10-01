@@ -18,10 +18,10 @@ public class InMemoryHistoryManager implements HistoryManager {
         Node prev;
         Node next;
 
-        public Node(Task task) {
-            this.task = task;
-        }
+    public Node(Task task) {
+        this.task = task;
     }
+}
 
     private void removeNode(Node node) { // Метод удаления узла из истории. Сложность амортиз. О(1)
         if (node == null) return; // Если узел не пустой
