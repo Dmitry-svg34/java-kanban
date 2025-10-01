@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
         TaskManager manager = Managers.getDefault();
 
-        // Тесты ФЗ - Спринт 4
+    // Тесты ФЗ - Спринт 4
 
         // 1. Создаем две обычные задачи
         System.out.println("Создаём задачи про уборку:");
@@ -108,7 +108,7 @@ public class Main {
         manager.printSubtask();
         System.out.println();
 
-        // Тесты ФЗ - Спринт 5
+    // Тесты ФЗ - Спринт 5
 
         System.out.println("// Тесты ФЗ - Спринт 5");
         System.out.println();
