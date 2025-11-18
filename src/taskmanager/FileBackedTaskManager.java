@@ -11,7 +11,8 @@ import java.util.ArrayList;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
-    Path path;
+    public static final String HEADER = "id,type,name,status,description,epic";
+    private Path path;
 
     public FileBackedTaskManager(Path path) {
         this.path = path;
@@ -170,7 +171,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                      new FileOutputStream(path.toFile()),
                      StandardCharsets.UTF_8))
         ) {
-            bw.write("id,type,name,status,description,epic");
+            bw.write(HEADER);
             bw.newLine();
 
             for (Task task : allTasks) {

@@ -6,6 +6,9 @@ import tasks.Task;
 
 public class CsvTaskHelper {
 
+    private CsvTaskHelper() {
+    }
+
     public static String parseToString(Task task) {
         StringBuilder line = new StringBuilder();
         line.append(task.getId());
@@ -27,7 +30,6 @@ public class CsvTaskHelper {
 
     public static Task parseFromString(String line) {
         String[] massiveTransform = line.split(",");
-
         int id = Integer.parseInt(massiveTransform[0]);
         String type = massiveTransform[1].trim();
         String name = massiveTransform[2].trim();
@@ -38,45 +40,27 @@ public class CsvTaskHelper {
             epicIdSub = Integer.parseInt(massiveTransform[5]);
         }
 
-        switch (type) {
-            case "TASK" :
+        TaskType taskType = TaskType.valueOf(type);
+        switch (taskType) {
+            case TASK:
                 Task task = new Task(name, description, TaskStatus.NEW);
                 task.setId(id);
-                if ("IN_PROGRESS".equals(status)) {
-                    task.setTaskStatus(TaskStatus.IN_PROGRESS);
-                } else if ("DONE".equals(status)) {
-                    task.setTaskStatus(TaskStatus.DONE);
-                }
+                task.setTaskStatus(TaskStatus.valueOf(status));
                 return task;
 
-            case "EPIC" :
+            case EPIC:
                 Epic epic = new Epic(name, description);
                 epic.setId(id);
-                switch (status) {
-                    case "NEW":
-                        epic.setTaskStatus(TaskStatus.NEW);
-                        break;
-                    case "IN_PROGRESS":
-                        epic.setTaskStatus(TaskStatus.IN_PROGRESS);
-                        break;
-                    case "DONE":
-                        epic.setTaskStatus(TaskStatus.DONE);
-                        break;
-                }
+                epic.setTaskStatus(TaskStatus.valueOf(status));
                 return epic;
 
-            case "SUBTASK" :
+            case SUBTASK:
                 SubTask subTask = new SubTask(name, description, epicIdSub);
                 subTask.setId(id);
                 subTask.setEpicId(epicIdSub);
                 subTask.setTaskStatus(TaskStatus.NEW);
-                if ("IN_PROGRESS".equals(status)) {
-                    subTask.setTaskStatus(TaskStatus.IN_PROGRESS);
-                } else if ("DONE".equals(status)) {
-                    subTask.setTaskStatus(TaskStatus.DONE);
-                }
+                subTask.setTaskStatus(TaskStatus.valueOf(status));
                 return subTask;
-
 
             default:
                 System.out.println("Неизвестный тип задачи: " + type);
